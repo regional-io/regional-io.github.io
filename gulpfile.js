@@ -17,8 +17,20 @@ var banner = ['/*!\n',
     ''
 ].join('');
 
+gulp.task('default', gulp.series('css', 'server', (done) => {
+
+    // image changes
+    gulp.watch(imgConfig.src, gulp.series('images'));
+  
+    // CSS changes
+    gulp.watch(cssConfig.watch, gulp.series('css'));
+  
+    done();
+  
+  }));
+
 // Default task
-gulp.task('default', ['less', 'minify-css', 'minify-js', 'copy']);
+gulp.task('default', gulp.series('less', 'minify-css', 'minify-js', 'copy'  (done) => { done();}));
 
 // Less task to compile the less files and add the banner
 gulp.task('less', function() {
